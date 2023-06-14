@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:layout/screens/home.dart';
-import 'package:layout/screens/login.dart';
+import 'package:layout/screens/nav_pages/home_page.dart';
 import 'package:layout/state/bloc/indicator_bloc.dart';
 import 'package:layout/state/favourite_bloc/favourite_bloc.dart';
 import 'package:layout/state/favourite_check/bloc/favourite_check_bloc.dart';
@@ -66,7 +64,7 @@ void main() async {
       BlocProvider(
         create: (context) => MarkersBloc(),
       ),
-       BlocProvider(
+      BlocProvider(
         create: (context) => KeyboardBloc(),
       ),
     ],
@@ -94,25 +92,25 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home:
-          //ValuationForm()
-          StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const  CircularProgressIndicator();
-          } else if (snapshot.hasData && snapshot.data != null) {
-            return HomeScreen();
-          } else {
-            return LoginPage();
-          }
-        },
-      ),
-    );
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+        ),
+        home: HomeScreen()
+        //ValuationForm()
+        //   StreamBuilder(
+        // stream: FirebaseAuth.instance.authStateChanges(),
+        // builder: (context, snapshot) {
+        //   if (snapshot.connectionState == ConnectionState.waiting) {
+        //     return const  CircularProgressIndicator();
+        //   } else if (snapshot.hasData && snapshot.data != null) {
+        //     return HomeScreen();
+        //   } else {
+        //     return LoginPage();
+        //   }
+        // },
+        //),
+        );
   }
 }

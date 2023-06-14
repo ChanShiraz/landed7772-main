@@ -8,7 +8,6 @@ import 'package:layout/screens/drawer_page/bankder.dart';
 import 'package:layout/screens/drawer_page/builder.dart';
 import 'package:layout/screens/drawer_page/property.dart';
 import 'package:layout/screens/drawer_page/valuation%20.dart';
-import 'package:layout/screens/login.dart';
 import 'package:layout/screens/nav_pages/home_page.dart';
 import 'package:layout/screens/nav_pages/open_house.dart';
 import 'package:layout/screens/nav_pages/save_page.dart';
@@ -204,46 +203,46 @@ class HomeScreen extends StatelessWidget {
                     )),
                 leading: const Icon(Icons.info_outline_rounded),
                 title: const Text('About us')),
-            ListTile(
-              onTap: () async {
-                showDialog(
-                    context: context,
-                    builder: (context) => const LoadingDialouge());
-                try {
-                  await FirebaseAuth.instance.currentUser?.delete();
-                  print('account done');
-                  //await FirebaseAuth.instance.signOut();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Account Deleted!')));
-                  Navigator.pushAndRemoveUntil<dynamic>(
-                    context,
-                    MaterialPageRoute<dynamic>(
-                      builder: (BuildContext context) => LoginPage(),
-                    ),
-                    (route) =>
-                        false, //if you want to disable back feature set to false
-                  );
-                } catch (e) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(e.toString())));
-                }
-                // showDialog(
-                //   context: context,
-                //   builder: (context) => const DeleteAccoutnDialouge(),
-                // );
-              },
-              leading: const Icon(Icons.delete_forever_outlined),
-              title: const Text('Delete my account'),
-            ),
-            ListTile(
-                onTap: () async {
-                  showDialog(
-                    context: context,
-                    builder: (context) => const LogOutDialouge(),
-                  );
-                },
-                leading: const Icon(Icons.logout),
-                title: const Text('Logout')),
+            // ListTile(
+            //   onTap: () async {
+            //     showDialog(
+            //         context: context,
+            //         builder: (context) => const LoadingDialouge());
+            //     try {
+            //       await FirebaseAuth.instance.currentUser?.delete();
+            //       print('account done');
+            //       //await FirebaseAuth.instance.signOut();
+            //       ScaffoldMessenger.of(context).showSnackBar(
+            //           const SnackBar(content: Text('Account Deleted!')));
+            //       Navigator.pushAndRemoveUntil<dynamic>(
+            //         context,
+            //         MaterialPageRoute<dynamic>(
+            //           builder: (BuildContext context) => LoginPage(),
+            //         ),
+            //         (route) =>
+            //             false, //if you want to disable back feature set to false
+            //       );
+            //     } catch (e) {
+            //       ScaffoldMessenger.of(context)
+            //           .showSnackBar(SnackBar(content: Text(e.toString())));
+            //     }
+            //     // showDialog(
+            //     //   context: context,
+            //     //   builder: (context) => const DeleteAccoutnDialouge(),
+            //     // );
+            //   },
+            //   leading: const Icon(Icons.delete_forever_outlined),
+            //   title: const Text('Delete my account'),
+            // ),
+            // ListTile(
+            //     onTap: () async {
+            //       showDialog(
+            //         context: context,
+            //         builder: (context) => const LogOutDialouge(),
+            //       );
+            //     },
+            //     leading: const Icon(Icons.logout),
+            //     title: const Text('Logout')),
           ],
         )),
         bottomNavigationBar: BlocBuilder(
