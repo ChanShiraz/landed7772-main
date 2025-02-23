@@ -9,7 +9,7 @@ import 'package:layout/screens/sign_up.dart';
 import 'package:layout/state/text_box/bloc/text_box_bloc.dart';
 
 import '../costants/colors.dart';
-import 'home.dart';
+import '../features/home/view/home.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -28,20 +28,24 @@ class LoginPage extends StatelessWidget {
             color: AppColor.primaryBlue,
             child: Column(
               children: [
-                Expanded(
+                const Expanded(
                     flex: 3,
                     child: Center(
                         child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Image(
-                            image: AssetImage('assets/images/logo.png'),
-                            height: 100),
+                      children: [
                         SizedBox(
                           height: 5,
                         ),
                         Text(
                           'Welcome back!',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          'Real Estate App',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 24,
@@ -162,7 +166,7 @@ class LoginPage extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(13)),
-                                backgroundColor: AppColor.primaryBlue,
+                                //backgroundColor: AppColor.primaryBlue,
                               ),
                               onPressed: () {
                                 //   showDialog(

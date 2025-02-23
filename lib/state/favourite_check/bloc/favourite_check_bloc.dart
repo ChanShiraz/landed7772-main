@@ -6,22 +6,23 @@ import 'package:meta/meta.dart';
 part 'favourite_check_event.dart';
 part 'favourite_check_state.dart';
 
-class FavouriteCheckBloc extends Bloc<FavouriteCheckEvents, FavouriteCheckState> {
+class FavouriteCheckBloc
+    extends Bloc<FavouriteCheckEvents, FavouriteCheckState> {
   FavouriteCheckBloc() : super(FavouriteCheckInitial()) {
     final FirebaseAuth auth = FirebaseAuth.instance;
-    final User user = auth.currentUser!;
-    final uid = user.uid;
-    final ref = FirebaseFirestore.instance
-        .collection('Users')
-        .doc(uid)
-        .collection('Favourites');
-    on<FavouriteCheckEvents>((event, emit)async {
-      if(event is FavouriteCheckEvent){
+
+    on<FavouriteCheckEvents>((event, emit) async {
+      if (event is FavouriteCheckEvent) {
+        final User user = auth.currentUser!;
+        final uid = user.uid;
+        final ref = FirebaseFirestore.instance
+            .collection('Users')
+            .doc(uid)
+            .collection('Favourites');
         await ref.doc(event.propertyId).get().then((snapShot) {
-          if(snapShot.exists){
+          if (snapShot.exists) {
             emit(FavouriteCheckPresent());
-          }
-          else{
+          } else {
             emit(FavouriteCheckNull());
           }
         });

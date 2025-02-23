@@ -9,6 +9,7 @@ class SearchingEvent extends SearchingEvents {
   List<String>? noOfBedRoomsList;
   List<String>? forSaleList;
   List<String>? districtList;
+  List<String>? conditionList;
   int? startPrice;
   int? endPrice;
   SearchingEvent(
@@ -16,6 +17,7 @@ class SearchingEvent extends SearchingEvents {
       this.noOfBedRoomsList,
       this.forSaleList,
       this.startPrice,
+      this.conditionList,
       this.endPrice,
       this.districtList
       });

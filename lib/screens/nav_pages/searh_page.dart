@@ -11,9 +11,8 @@ import '../search_result.dart';
 
 class SearchPage extends StatelessWidget {
   SearchPage({super.key});
-   TextEditingController fromTextController 
-     = TextEditingController();
-   TextEditingController toTextController = TextEditingController();
+  TextEditingController fromTextController = TextEditingController();
+  TextEditingController toTextController = TextEditingController();
   final typesList = [
     'Inter Terrace',
     'Corner Terrace',
@@ -34,8 +33,10 @@ class SearchPage extends StatelessWidget {
   ];
   final noOfBedCheck = List.generate(10, (index) => false);
   final forSaleCheck = List.generate(2, (index) => false);
+  final conditonCheck = List.generate(2, (index) => false);
   final districtCheck = List.generate(5, (index) => false);
   final forSaleList = ['Sale', 'Rent'];
+  final conditionList = ['Brand New', 'Resale'];
   late SearchingBloc searchingBloc;
   late KeyboardBloc keyboardBloc;
 
@@ -45,6 +46,7 @@ class SearchPage extends StatelessWidget {
   List<String> propertyTypeChecked = [];
   List<String> bedRoomsChecked = [];
   List<String> forSaleChecked = [];
+  List<String> conditionChecked = [];
   List<String> districtChecked = [];
 
   @override
@@ -56,16 +58,15 @@ class SearchPage extends StatelessWidget {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: SingleChildScrollView(
           child: KeyboardVisibilityBuilder(
-      
             key: GlobalKey(),
-            builder: (BuildContext context, Widget child, bool isKeyboardVisible) {
-              if(isKeyboardVisible){
-              keyboardBloc.add(KeyboardOpenEvent());
-            }
-            else{
-              keyboardBloc.add(KeyboardCloseEvent());
-            }
-            return child;
+            builder:
+                (BuildContext context, Widget child, bool isKeyboardVisible) {
+              if (isKeyboardVisible) {
+                keyboardBloc.add(KeyboardOpenEvent());
+              } else {
+                keyboardBloc.add(KeyboardCloseEvent());
+              }
+              return child;
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -89,7 +90,8 @@ class SearchPage extends StatelessWidget {
                       ),
                       const Text(
                         'Price Range',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -131,29 +133,34 @@ class SearchPage extends StatelessWidget {
                       ),
                       const Text(
                         'Property Type',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                      CheckBoxs(types: typesList, checkValues: propertyTypeCheck),
+                      CheckBoxs(
+                          types: typesList, checkValues: propertyTypeCheck),
                       const SizedBox(
                         height: 10,
                       ),
                       const Text(
                         'No of Bedrooms',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                      BedChecks(noOfBeds: noOfBedList, bedCheckValue: noOfBedCheck),
+                      BedChecks(
+                          noOfBeds: noOfBedList, bedCheckValue: noOfBedCheck),
                       const SizedBox(
                         height: 20,
                       ),
                       const Text(
                         'District',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 10,
@@ -166,13 +173,29 @@ class SearchPage extends StatelessWidget {
                       ),
                       const Text(
                         'Available for',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       ForSaleChecks(
-                          forSaleCheck: forSaleList, forSaleCheckValue: forSaleCheck),
+                          forSaleCheck: forSaleList,
+                          forSaleCheckValue: forSaleCheck),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Condition',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ConditionCheckWidget(
+                          conditionList: conditionList,
+                          conditionValue: conditonCheck),
                       const SizedBox(
                         height: 40,
                       ),
@@ -183,7 +206,8 @@ class SearchPage extends StatelessWidget {
                               onPressed: () {
                                 FocusManager.instance.primaryFocus?.unfocus();
                                 if (fromTextController.text.isNotEmpty) {
-                                  startPrice = int.parse(fromTextController.text);
+                                  startPrice =
+                                      int.parse(fromTextController.text);
                                 }
                                 if (toTextController.text.isNotEmpty) {
                                   endPrice = int.parse(toTextController.text);
@@ -191,8 +215,11 @@ class SearchPage extends StatelessWidget {
                                 propertyTypeChecked = [];
                                 bedRoomsChecked = [];
                                 forSaleChecked = [];
+                                conditionChecked = [];
                                 districtChecked = [];
-                                for (var i = 0; i < propertyTypeCheck.length; i++) {
+                                for (var i = 0;
+                                    i < propertyTypeCheck.length;
+                                    i++) {
                                   if (propertyTypeCheck[i] == true) {
                                     propertyTypeChecked.add(typesList[i]);
                                     //print(typesList[i]);
@@ -208,10 +235,20 @@ class SearchPage extends StatelessWidget {
                                     forSaleChecked.add(forSaleList[i]);
                                   }
                                 }
+                                for (var i = 0; i < conditonCheck.length; i++) {
+                                  if (conditonCheck[i] == true) {
+                                    conditionChecked.add(conditionList[i]);
+                                  }
+                                }
                                 for (var i = 0; i < districtCheck.length; i++) {
                                   if (districtCheck[i] == true) {
                                     if (i == 0) {
-                                      final central = ['D9', 'D10', 'D11', 'D21'];
+                                      final central = [
+                                        'D9',
+                                        'D10',
+                                        'D11',
+                                        'D21'
+                                      ];
                                       districtChecked.addAll(central);
                                     }
                                     if (i == 1) {
@@ -259,6 +296,7 @@ class SearchPage extends StatelessWidget {
                                   builder: (context) => SearchResultPage(),
                                 ));
                                 searchingBloc.add(SearchingEvent(
+                                    conditionList: conditionChecked,
                                     propertyTypesList: propertyTypeChecked,
                                     noOfBedRoomsList: bedRoomsChecked,
                                     forSaleList: forSaleChecked,
@@ -378,6 +416,50 @@ class _ForSaleChecks extends State<ForSaleChecks> {
               },
             ),
             Text(widget.forSaleCheck[index]),
+            const SizedBox(width: 10),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class ConditionCheckWidget extends StatefulWidget {
+  const ConditionCheckWidget(
+      {super.key, required this.conditionList, required this.conditionValue});
+  final List<String> conditionList;
+  final List<bool?> conditionValue;
+
+  @override
+  State<ConditionCheckWidget> createState() => _ConditionCheckWidgetState();
+}
+
+class _ConditionCheckWidgetState extends State<ConditionCheckWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 4.5,
+        crossAxisSpacing: 10.0,
+        mainAxisSpacing: 10.0,
+      ),
+      itemCount: widget.conditionList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Row(
+          children: [
+            Checkbox(
+              value: widget.conditionValue[index],
+              onChanged: (value) {
+                setState(() {
+                  widget.conditionValue[index] = value;
+                });
+              },
+            ),
+            Text(widget.conditionList[index]),
             const SizedBox(width: 10),
           ],
         );

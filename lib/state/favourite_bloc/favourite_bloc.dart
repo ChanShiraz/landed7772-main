@@ -10,13 +10,15 @@ part 'favourite_state.dart';
 class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteBlocState> {
   FavouriteBloc() : super(FavouriteBlocInitial()) {
     final FirebaseAuth auth = FirebaseAuth.instance;
-    final User user = auth.currentUser!;
-    final uid = user.uid;
-    final ref = FirebaseFirestore.instance
-        .collection('Users')
-        .doc(uid)
-        .collection('Favourites');
+
     on<FavouriteEvent>((event, emit) async {
+      final User user = auth.currentUser!;
+      final uid = user.uid;
+      final ref = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(uid)
+          .collection('Favourites');
+          
       if (event is AddFavouriteEvent) {
         emit(FavouriteBlocAddLoading());
         await ref
@@ -33,9 +35,8 @@ class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteBlocState> {
           return null;
         });
       }
-      if(event is RemoveFavouriteEvent){
+      if (event is RemoveFavouriteEvent) {
         ref.doc(event.propertyId).delete();
-        
       }
       if (event is AddFavouriteIntialEvent) {
         emit(FavouriteBlocInitial());

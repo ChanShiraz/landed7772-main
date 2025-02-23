@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:layout/extensions/contexExt.dart';
-import 'package:layout/screens/home.dart';
+import 'package:layout/features/home/view/home.dart';
 import 'package:layout/state/text_box/bloc/text_box_bloc.dart';
 
 import '../costants/colors.dart';
@@ -28,15 +28,19 @@ class SignUpScreen extends StatelessWidget {
             color: AppColor.primaryBlue,
             child: Column(
               children: [
-                Expanded(
+                const Expanded(
                     flex: 3,
                     child: Center(
                         child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Image(
-                            image: AssetImage('assets/images/logo.png'),
-                            height: 100),
+                      children: [
+                        Text(
+                          'Real Estate App',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500),
+                        ),
                         SizedBox(
                           height: 5,
                         ),
@@ -177,7 +181,7 @@ class SignUpScreen extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(13)),
-                                backgroundColor: AppColor.primaryBlue,
+                                // backgroundColor: AppColor.primaryBlue,
                               ),
                               onPressed: () {
                                 String name = nameController.text;

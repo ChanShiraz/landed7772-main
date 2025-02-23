@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -65,8 +66,9 @@ class ListingDetailsScreen extends StatelessWidget {
                                     .add(IndicatorChangeEvent(newValue: value));
                               },
                               itemBuilder: (context, index) {
-                                return Image.network(
-                                  images![index],
+                                return CachedNetworkImage(
+                                  fit: BoxFit.cover,
+                                  imageUrl: images![index],
                                 );
                               },
                             ),
@@ -169,7 +171,9 @@ class ListingDetailsScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: Text(
-                          'For ${listing.forSale}',
+                          listing.forSale.contains('Sold')
+                              ? 'Sold'
+                              : 'For ${listing.forSale}',
                           style: const TextStyle(
                               color: AppColor.primaryBlue,
                               fontSize: 16,
@@ -184,21 +188,25 @@ class ListingDetailsScreen extends StatelessWidget {
                       const SizedBox(
                         height: 25,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          RoomsWidget(
-                            icons: Icons.bed,
-                            text: '${listing.noOfBedRooms} Bedrooms',
-                          ),
-                          RoomsWidget(
-                            icons: Icons.bathtub_outlined,
-                            text: '${listing.noOfBathRooms} Bathrooms',
-                          ),
-                          RoomsWidget(
-                              icons: Icons.place_outlined,
-                              text: listing.district),
-                        ],
+                      SizedBox(
+                        width: context.width,
+                        height: 40,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            RoomsWidget(
+                              icons: Icons.bed,
+                              text: '${listing.noOfBedRooms} Bedrooms',
+                            ),
+                            RoomsWidget(
+                              icons: Icons.bathtub_outlined,
+                              text: '${listing.noOfBathRooms} Bathrooms',
+                            ),
+                            RoomsWidget(
+                                icons: Icons.place_outlined,
+                                text: listing.district),
+                          ],
+                        ),
                       ),
                       const SizedBox(
                         height: 15,
@@ -282,7 +290,7 @@ class ListingDetailsScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Text('Name: ${listing.agentName}'),
+                      Text('Name: ${listing.agentName.toTitleCase()}'),
                       const SizedBox(
                         height: 10,
                       ),
@@ -467,6 +475,12 @@ class DetailsWidget extends StatelessWidget {
                 keyO: 'Property Type:',
                 value: listing.propertyType,
               ),
+              listing.conditon != null
+                  ? DetailsTextWidget(
+                      keyO: 'Condition:',
+                      value: listing.conditon!,
+                    )
+                  : const SizedBox.shrink(),
               DetailsTextWidget(
                 keyO: 'Tenure:',
                 value: listing.tenureDuration,
@@ -523,28 +537,40 @@ class RoomsWidget extends StatelessWidget {
   String text;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 35,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: Colors.grey[300],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Icon(
-                icons,
-                color: AppColor.primaryBlue,
-              ),
-              const SizedBox(width: 10),
-              Text(text)
-            ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 3),
+      child: Container(
+        height: 35,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: Colors.grey[300],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(
+                  icons,
+                  color: AppColor.primaryBlue,
+                ),
+                const SizedBox(width: 10),
+                Text(text)
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+}
+
+extension StringCasingExtension on String {
+  String toCapitalized() =>
+      length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+  String toTitleCase() => replaceAll(RegExp(' +'), ' ')
+      .split(' ')
+      .map((str) => str.toCapitalized())
+      .join(' ');
 }

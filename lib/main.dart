@@ -2,8 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:layout/screens/home.dart';
-import 'package:layout/screens/nav_pages/home_page.dart';
+import 'package:layout/features/home/view/home.dart';
+import 'package:layout/features/home/view/home_page.dart';
+import 'package:layout/screens/login.dart';
+import 'package:layout/screens/sign_up.dart';
 import 'package:layout/state/bloc/indicator_bloc.dart';
 import 'package:layout/state/favourite_bloc/favourite_bloc.dart';
 import 'package:layout/state/favourite_check/bloc/favourite_check_bloc.dart';
@@ -92,25 +94,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Landed7772',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.red,
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         ),
-        home: HomeScreen()
-        //ValuationForm()
-        //   StreamBuilder(
-        // stream: FirebaseAuth.instance.authStateChanges(),
-        // builder: (context, snapshot) {
-        //   if (snapshot.connectionState == ConnectionState.waiting) {
-        //     return const  CircularProgressIndicator();
-        //   } else if (snapshot.hasData && snapshot.data != null) {
-        //     return HomeScreen();
-        //   } else {
-        //     return LoginPage();
-        //   }
-        // },
-        //),
-        );
+        home: HomeScreen());
   }
 }

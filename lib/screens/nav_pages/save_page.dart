@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:layout/extensions/contexExt.dart';
 import 'package:layout/screens/listing_details.dart';
-import 'package:layout/screens/nav_pages/home_page.dart';
+import 'package:layout/features/home/view/home_page.dart';
 import 'package:layout/state/favourite_fetch/bloc/favourit_fetch_bloc.dart';
 
 class SavedPage extends StatelessWidget {
@@ -42,10 +42,10 @@ class SavedPage extends StatelessWidget {
                     if (state is FavouritFetchLoading) {
                       return const FavouriteLoading();
                     } else if (state is FavouritFetchEmpty) {
-                      return Center(
+                      return const Center(
                           child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                           Icon(
                             Icons.sticky_note_2_outlined,
                             size: 50,
@@ -79,7 +79,8 @@ class SavedPage extends StatelessWidget {
                         },
                       );
                     }
-                    return const Center(child: Text('Some error occured'));
+                    return const Center(
+                        child: Text('You have not saved any listing.'));
                   },
                 ),
               ),

@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:layout/extensions/contexExt.dart';
 import 'package:layout/state/markers/bloc/markers_bloc_bloc.dart';
 import 'package:layout/state/open_house/bloc/open_house_bloc.dart';
 
 class OpenHousePage extends StatefulWidget {
+  const OpenHousePage({super.key});
+
   @override
   _OpenHouseState createState() => _OpenHouseState();
 }
@@ -28,7 +31,7 @@ class _OpenHouseState extends State<OpenHousePage> {
   Widget build(BuildContext context) {
     openHouseBloc = context.read<OpenHouseBloc>();
     markersBloc = context.read<MarkersBloc>();
-    //openHouseBloc.add(OpenHouseFetchEvent());
+    openHouseBloc.add(OpenHouseFetchEvent());
     return Scaffold(
         body: BlocBuilder(
       bloc: openHouseBloc,
@@ -51,7 +54,16 @@ class _OpenHouseState extends State<OpenHousePage> {
                   markers: state.markersSet,
                 );
               } else {
-                return const Text('data');
+                return Center(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: context.height * 0.4,
+                      ),
+                      const CircularProgressIndicator(),
+                    ],
+                  ),
+                );
               }
             },
           );

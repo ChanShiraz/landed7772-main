@@ -4,6 +4,5 @@ part of 'open_house_bloc.dart';
 abstract class OpenHouseEvent {}
 
 class OpenHouseFetchEvent extends OpenHouseEvent {
-  List<Listing>mapListings;
-  OpenHouseFetchEvent({required this.mapListings});
+  OpenHouseFetchEvent();
 }

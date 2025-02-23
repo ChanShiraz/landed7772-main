@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:layout/screens/listing_details.dart';
-import 'package:layout/screens/nav_pages/home_page.dart';
+import 'package:layout/features/home/view/home_page.dart';
 import 'package:layout/state/searching_bloc/bloc/searching_bloc.dart';
 
 class SearchResultPage extends StatelessWidget {
@@ -84,9 +84,9 @@ class SearchLoadinWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return const Expanded(
         child: Column(
-      children: const [
+      children: [
         ShimmerLoading(),
         ShimmerLoading(),
         ShimmerLoading(),

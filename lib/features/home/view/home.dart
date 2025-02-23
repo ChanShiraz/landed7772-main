@@ -8,8 +8,8 @@ import 'package:layout/screens/drawer_page/bankder.dart';
 import 'package:layout/screens/drawer_page/builder.dart';
 import 'package:layout/screens/drawer_page/property.dart';
 import 'package:layout/screens/drawer_page/valuation%20.dart';
-import 'package:layout/screens/nav_pages/home_page.dart';
-import 'package:layout/screens/nav_pages/open_house.dart';
+import 'package:layout/features/home/view/home_page.dart';
+import 'package:layout/features/open_house/view/open_house.dart';
 import 'package:layout/screens/nav_pages/save_page.dart';
 import 'package:layout/screens/nav_pages/searh_page.dart';
 import 'package:layout/state/navbar_bloc/navbar_bloc.dart';
@@ -23,23 +23,23 @@ class HomeScreen extends StatelessWidget {
     HomePage(),
     SearchPage(),
     SavedPage(),
-    OpenHousePage()
+    const OpenHousePage()
   ];
   String? name;
-  User user = FirebaseAuth.instance.currentUser!;
+  //User user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
-    final ref = FirebaseFirestore.instance
-        .collection('Users')
-        .doc(user.uid)
-        .get()
-        .then((value) {
-      if (value.data() != null) {
-        name = value.data()!['Name'];
-        print(name);
-      }
-      return;
-    });
+    // final ref = FirebaseFirestore.instance
+    //     .collection('Users')
+    //     .doc(user.uid)
+    //     .get()
+    //     .then((value) {
+    //   if (value.data() != null) {
+    //     name = value.data()!['Name'];
+    //     print(name);
+    //   }
+    //   return;
+    // });
     navbarBloc = context.read<NavbarBloc>();
     return SafeArea(
       child: Scaffold(
@@ -66,48 +66,48 @@ class HomeScreen extends StatelessWidget {
         drawer: Drawer(
             child: ListView(
           children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.grey.shade300),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const CircleAvatar(
-                      radius: 35,
-                      child: Icon(
-                        Icons.person_outline,
-                        size: 50,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    FutureBuilder(
-                      future: FirebaseFirestore.instance
-                          .collection('Users')
-                          .doc(user.uid)
-                          .get()
-                          .then((value) => value.data()!['Name']),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData && snapshot.data != null) {
-                          return Text(
-                            snapshot.data!,
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          );
-                        }
-                        return Container();
-                      },
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(user.email != null ? user.email! : '')
-                  ],
-                ),
-              ),
-            ),
+            // DrawerHeader(
+            //   decoration: BoxDecoration(color: Colors.grey.shade300),
+            //   child: Align(
+            //     alignment: Alignment.centerLeft,
+            //     child: Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         const CircleAvatar(
+            //           radius: 35,
+            //           child: Icon(
+            //             Icons.person_outline,
+            //             size: 50,
+            //           ),
+            //         ),
+            //         const SizedBox(
+            //           height: 10,
+            //         ),
+            //         FutureBuilder(
+            //           future: FirebaseFirestore.instance
+            //               .collection('Users')
+            //               .doc(user.uid)
+            //               .get()
+            //               .then((value) => value.data()!['Name']),
+            //           builder: (context, snapshot) {
+            //             if (snapshot.hasData && snapshot.data != null) {
+            //               return Text(
+            //                 snapshot.data!,
+            //                 style: const TextStyle(
+            //                     fontSize: 20, fontWeight: FontWeight.bold),
+            //               );
+            //             }
+            //             return Container();
+            //           },
+            //         ),
+            //         const SizedBox(
+            //           height: 10,
+            //         ),
+            //         Text(user.email != null ? user.email! : '')
+            //       ],
+            //     ),
+            //   ),
+            // ),
             ListTile(
                 onTap: () => visitLink(
                     'https://www.youtube.com/playlist?list=PLbnBlzHq1pxa27MGbGzSzBFpLpgqRI8Io',
@@ -336,9 +336,9 @@ class LoadingDialouge extends StatelessWidget {
     return AlertDialog(
       title: const Text('Deleting Account'),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      content: Column(
+      content: const Column(
         mainAxisSize: MainAxisSize.min,
-        children: const [
+        children: [
           Text('Please wait! we are deleting your account.'),
           SizedBox(
             height: 10,

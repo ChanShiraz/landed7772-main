@@ -8,6 +8,7 @@ class Listing {
   String propertyId;
   String address;
   String forSale;
+  String? conditon;
   String? mapLocation;
   String featuredImageUrl;
   String? optionalImage1;
@@ -38,6 +39,7 @@ class Listing {
       required this.featuredImageUrl,
       this.optionalImage1,
       this.optionalImage2,
+      this.conditon,
       this.optionalImage3,
       required this.price,
       required this.landSize,
@@ -66,6 +68,7 @@ class Listing {
       'optionalImage2': optionalImage2,
       'optionalImage3': optionalImage3,
       'price': price,
+      'conditon': conditon,
       'landSize': landSize,
       'builtUp': builtUp,
       'district': district,
@@ -91,6 +94,7 @@ class Listing {
       mapLocation: data?['mapLocation'],
       propertyId: data?['propertyId'],
       forSale: data?['forSale'],
+      conditon: data?['conditon'],
       featuredImageUrl: data?['featuredImageUrl'],
       optionalImage1: data?['optionalImage1'],
       optionalImage2: data?['optionalImage2'],
@@ -123,6 +127,7 @@ class Listing {
       optionalImage1: data?['optionalImage1'] != null
           ? data!['optionalImage1'] as String
           : null,
+      conditon: data?['conditon'] != null ? data!['conditon'] as String : null,
       optionalImage2: data?['optionalImage2'] != null
           ? data!['optionalImage2'] as String
           : null,
@@ -145,12 +150,5 @@ class Listing {
           data?['youtubeLink'] != null ? data!['youtubeLink'] as String : null,
       timeStamp: data?['timeStamp'] as int,
     );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  @override
-  String toString() {
-    return 'Listing(title: $title, propertyId: $propertyId, forSale: $forSale, featuredImageUrl: $featuredImageUrl, optionalImage1: $optionalImage1, optionalImage2: $optionalImage2, optionalImage3: $optionalImage3, price: $price, landSize: $landSize, builtUp: $builtUp, district: $district, propertyType: $propertyType, noOfBedRooms: $noOfBedRooms, noOfBathRooms: $noOfBathRooms, tenureDuration: $tenureDuration, description: $description, agentName: $agentName, contactNo: $contactNo, youtubeLink: $youtubeLink)';
   }
 }

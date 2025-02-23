@@ -27,7 +27,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     on<ListingEvent>((event, emit) async {
       //sign in annoymously if user is not signed in
       try {
-        final userCredential = await FirebaseAuth.instance.signInAnonymously();
+         await FirebaseAuth.instance.signInAnonymously();
         print("Signed in with temporary account.");
       } on FirebaseAuthException catch (e) {
         switch (e.code) {
